@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <!--=============== FLATICON ===============-->
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+  <style>
+    table {
+      width: 100%;
+      height: 100px;
+    }
+    thead {
+      height: 56px;
+    }
+    .container tbody {
+      height: 111px;
+    }
+    .displayPod th {
+      padding: 15px 10px;
+      border-bottom: 1px solid gray;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .product__remove {
+      width: 2.8%;
+    }
+    .product__thumbnail {
+      width: 6.9%;
+    }
+    .product__Item {
+      width: 30%;
+    }   
+
+    .product__count {
+      width: 8.3%;
+    }
+
+    .product__tempPrice {
+      width: 19%;
+    }
+  </style>
+</head>
+<body onload="CartloadPage()">
+  <!--========= HEADER ========-->
+  <header id="header">
+    <nav class="nav container">
+      <a href="/home.html" class="nav__logo">
+        <img src="/assets/img/logo/logo_store.png" alt="" class="nav__logo-img">
+      </a>
+
+      <div class="nav__menu">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="/home.html">TRANG CHỦ</a></li>
+          <li class="nav__item"><a href="/productsCategory.html">GIÀY</a></li>
+          <li class="nav__item"><a href="/converseCategory.html">CONVERSE</a></li>
+          <li class="nav__item"><a href="/vansCategory.html">VANS</a></li>
+          <li class="nav__item"><a href="/productsCategory.html">HOT SALE</a></li>
+          <li class="nav__item"><a href="#">BLOG</a>
+            <i class="fi fi-rs-angle-small-down"></i>
+            <ul class="blog__list">
+              <li class="blog__item"><a href="#">Thời trang</a></li>
+              <li class="blog__item"><a href="#">Lifestyle</a></li>
+              <li class="blog__item"><a href="#">Du lịch</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="header__user-actions">
+        <div class="header__action-search">
+          <i class="fi fi-rs-search"></i>        
+        </div>
+        <div class="header__action-heart">
+          <a href="#">         
+            <i class="fi fi-rs-heart">
+            </i>
+          </a>
+          <span class="count">0</span>
+        </div>
+        <div class="header__action-cart js-openCart">
+          <a href="#">
+            <i class="fi fi-rs-shopping-cart"></i>          
+          </a>
+          <span class="cart__subtotal">
+            <span class="cart__subtotal-count">0</span>
+            <span class="cart__subtotal-divider">/</span>
+            <span class="cart__subtotal-totalAmount">
+              <span class="cart__subtotal-total" id="total">0</span>
+              <sup>₫</sup>
+            </span>
+          </span>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="custom__heading grid">
+    <div class="custom__heading-title">
+      <h2>HÀNG CÓ SẴN CHÍNH HÃNG</h2>
+    </div>
+    <div class="custom__heading-title">
+      <h2>ĐỔI TRẢ LINH HOẠT</h2>
+    </div>
+    <div class="custom__heading-title">
+      <h2>SHIP HÀNG TOÀN QUỐC</h2>
+    </div>
+  </div>
+  <main class="mainCart">
+    <section id="breadcrumb">
+      <div class="breadcrumb__container">
+        <div class="breadcrumb__title">
+          GIỎ HÀNG
+        </div>
+        <div class="breadcrumb__link">
+            <i class="fi fi-rs-house-chimney"></i>
+            <a href="/home.html"  class="breadcrumb__link-home">
+              Home
+            </a>
+            <span>/</span>
+            <span class="breadcrumb__cart">
+              Giỏ hàng
+            </span>
+        </div>
+      </div>
+    </section>
+    <table class="container">
+      <thead>
+        <tr class="displayProd">
+          <th class="product__remove"></th>
+          <th class="product__thumbnail"></th>
+          <th class="product__Item">SẢN PHẨM</th>
+          <th class="product__price">GIÁ</th>
+          <th class="product__count">SỐ LƯỢNG</th>
+          <th class="product__tempPrice">TẠM TÍNH</th>
+        </tr>
+      </thead>
+      <tbody id='products-cart'>
+      </tbody>
+    </table>
+
+    <div class="updateCart container">
+      <div class="discountCart">
+        <input type="text" placeholder="Mã ưu đãi">
+        <button>Áp Dụng</button>
+      </div>
+
+        <div class="updateCart__update">
+          <a href="">CẬP NHẬT GIỎ HÀNG</a>
+        </div>
+    </div>
+
+    <div class="subtotalCart container">
+      <div class="totalCart">
+        <h2>CỘNG GIỎ HÀNG</h2>
+        <div class="sumCart">
+          <div class="tempCart">
+            <span>Tạm tính</span>
+            <span>
+              <span id="tempValue"></span>
+              <span>₫</span>
+            </span>
+          </div>
+
+          <div class="subtotal__value">
+            <span>TỔNG</span>
+            <span>
+              <span id="subValue"></span>
+              <span>₫</span>
+            </span>
+          </div>
+        </div>
+        <div class="paymentCart">
+          <a href="#">TIẾN HÀNH THANH TOÁN</a>
+        </div>
+      </div>
+    </div>
+  </main>
+   <!--=========FOOTER========-->
+   <footer id="footer">
+    <div class="footer__top grid">
+      <div class="footer__top-menu container">
+        <ul>
+          <li><a href="#">MUA HÀNG</a></li>
+          <li><a href="#">ĐỔI TRẢ</a></li>
+          <li><a href="#">SHIP HÀNG</a></li>
+          <li><a href="#">THANH TOÁN</a></li>
+          <li><a href="#">SIZE GUIDE</a></li>
+          <li><a href="#">CÁCH CHECK CODE</a></li>
+        </ul>
+        <div class="footer__top-sm">
+          <ul>
+            <li>
+              <a href="#">
+                <img src="/assets/img/SM/fb.png" alt="">
+                <span>FACEBOOK</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="/assets/img/SM/instagram.png" alt="">
+                <span>INSTAGRAM</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="/assets/img/SM/shopee.jpg" alt="">
+                <span>SHOPEE</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__top-product">
+        <ul>
+          <li><a href="#">GIÀY</a></li>
+          <li><a href="#">ÁO</a></li>
+          <li><a href="#">SALE</a></li>
+          <li><a href="#">NAM</a></li>
+          <li><a href="#">NỮ</a></li>
+          <li><a href="#">CONVERSE</a></li>
+          <li><a href="#">VANS</a></li>
+        </ul>
+      </div>
+      <div class="footer__top-address">
+        <div class="address__title">
+          CONVERSE.STORE_
+        </div>
+        <div class="address__converse">
+          <div>CỬA HÀNG:</div>
+          <div>
+            <span>
+              Số 8. Nguyễn Hoàng Tôn,
+            </span>
+            <span>
+              Xuân La, Tây Hồ, Hà Nội
+            </span>
+          </div>
+          <span class="address__number">
+            <a href="#">+84 866.866.368</a>
+          </span>
+        </div>
+        <div class="address__blog">
+          <a href="#">BLOG</a>
+        </div>
+      </div>
+      <div class="footer__top-form">
+        <div class="form__title">
+          NHẬN ƯU ĐÃI TỪ CỬA HÀNG
+        </div>
+
+        <div class="form__input">
+          <input type="email" placeholder="NHẬP MAIL BẠN">
+        </div>
+
+        <div class="form__btn">
+          <button>NHẬN NGAY</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bot">
+      Copyright 2023. Converse.Store_
+    </div>
+  </footer>
+  <div class="modal__cart">
+    <div class="modal__cart-container">
+      <div class="cart__header">
+        <div class="cart__header-title">
+          GIỎ HÀNG
+        </div>
+
+        <div class="cart__header-close">
+          <span>ĐÓNG</span>
+          <span>
+            <i class="fi fi-rs-minus-small"></i>
+            <i class="fi fi-rs-cross-small"></i>
+          </span>
+        </div>
+      </div>
+      <div class="cart__body">
+        <!-- <div class="cart__body-notification">
+          <span>
+            <i class="fi fi-rs-cart-minus"></i>
+          </span>
+          <span>
+            Chưa có sản phẩm trong giỏ hàng
+          </span>
+        </div> -->
+        <div class="cart__render"></div>
+      </div>
+      <div class="cartTail cart__body">
+        <div class="showCart__subtotal">
+          <span class="showCart__total-title">
+            TỔNG SỐ PHỤ
+          </span>
+          <span>
+            <span class="showCart__total-price">
+              0
+            </span>
+            <sup>₫</sup>
+          </span>
+        </div>
+        <a href="/cart.html" class="showCart__open-cart" onclick=" renderDetail()">
+          XEM GIỎ HÀNG
+        </a>
+        <a href="#" class="showCart__payment">
+          THANH TOÁN
+        </a>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/js/javascript.js"></script>
+</body>
+</html>
